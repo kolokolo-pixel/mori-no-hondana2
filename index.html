@@ -3,45 +3,54 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>暮らしの森｜エリアマップ</title>
+<title>探索手帳｜暮らしの森</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root{
     --ivory:#F6F1E4; --ivory-deep:#EFE7D3;
     --forest:#2F4A3D; --forest-deep:#22352C;
-    --moss:#6E8A6E; --amber:#E8B463;
+    --moss:#6E8A6E; --moss-light:#9DBB98; --amber:#E8B463;
     --ink:#2B2620; --ink-soft:#57524A; --locked:#B9C2B3;
+    --bg-dark:#1C2B23; --bg-dark-deep:#141F19;
+    --cream:#F3EFE2; --cream-soft:#C9C4AE;
   }
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
   body{
     min-height:100vh;
-    background: radial-gradient(circle at 50% 0%, var(--ivory-deep), var(--ivory) 60%);
+    background: radial-gradient(circle at 50% 0%, var(--bg-dark), var(--bg-dark-deep) 70%);
     font-family:'Zen Maru Gothic', sans-serif;
-    color: var(--ink);
+    color: var(--cream);
     padding: 36px 20px 64px;
   }
   .wrap{ max-width:680px; margin:0 auto; }
   header{ text-align:center; margin-bottom:24px; }
   .brand{
-    border:none; background:none; padding:0; font-size:12px; letter-spacing:.25em;
-    color:var(--moss); font-weight:500; cursor:pointer; font-family:inherit; display:block; margin:0 auto 10px;
+    border:none; background:none; padding:0; font-size:15px; letter-spacing:.08em;
+    color:var(--moss-light); font-weight:500; cursor:pointer; font-family:inherit; display:block; margin:0 auto 14px;
   }
-  h1.title{ font-family:'Shippori Mincho', serif; font-size:30px; font-weight:700; color:var(--forest-deep); margin:8px 0 10px; }
-  p.sub{ font-size:13.5px; color:var(--ink-soft); line-height:1.7; margin:0 auto 18px; max-width:420px; }
+  p.eyebrow{ font-size:15px; letter-spacing:.1em; color:var(--moss-light); font-weight:500; margin:0 0 6px; }
+  h1.title{ font-family:'Shippori Mincho', serif; font-size:30px; font-weight:700; color:var(--cream); margin:0 0 10px; }
+  p.sub{ font-size:16px; color:var(--cream-soft); line-height:1.75; margin:0 auto 18px; max-width:440px; }
   .series-hero{
     border-radius:16px; background-size:cover; background-position:center; padding:28px 20px; margin-bottom:16px;
-    box-shadow:0 4px 16px rgba(43,38,32,.18);
+    box-shadow:0 4px 16px rgba(0,0,0,.35);
   }
   .series-hero h1{ font-family:'Shippori Mincho', serif; font-size:24px; font-weight:700; color:#FFFDF7; margin:0 0 8px; text-shadow:0 1px 4px rgba(0,0,0,.4); }
-  .series-hero p{ font-size:12.5px; color:#F3EFE2; line-height:1.7; margin:0 auto; max-width:400px; text-shadow:0 1px 3px rgba(0,0,0,.4); }
+  .series-hero p{ font-size:15px; color:#F3EFE2; line-height:1.75; margin:0 auto; max-width:420px; text-shadow:0 1px 3px rgba(0,0,0,.4); }
   .lantern-row{ display:flex; justify-content:center; gap:10px; margin-bottom:16px; }
   .lantern{ font-size:16px; color:var(--amber); transition:all .6s ease; }
   .hub-link{
     display:inline-block; font-size:12px; color:var(--forest); background:#FFFDF7;
     border:1px solid rgba(110,138,110,.35); border-radius:999px; padding:6px 16px; text-decoration:none;
   }
+  .magazine-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:8px; }
+  .magazine-link{
+    font-size:11px; color:var(--cream-soft); background:transparent; border:1px dashed rgba(201,196,174,.45);
+    border-radius:999px; padding:5px 12px; text-decoration:none;
+  }
+  .progress-note{ font-size:11.5px; color:var(--cream-soft); margin:10px 0 0; }
   .search-wrap{
     display:flex; align-items:center; gap:8px; background:#FFFDF7; border:1px solid rgba(110,138,110,.27);
     border-radius:999px; padding:8px 16px; margin:0 auto 14px;
@@ -50,8 +59,9 @@
   .search-icon{ color:var(--moss); font-size:14px; }
   .clear-btn{ border:none; background:transparent; color:var(--ink-soft); font-size:16px; cursor:pointer; line-height:1; }
   .back-btn{
-    display:block; margin:0 auto 18px; border:none; background:none; color:var(--moss);
-    font-size:12.5px; font-family:inherit; cursor:pointer; padding:0;
+    display:block; width:fit-content; margin:0 auto 18px; border:1px solid rgba(110,138,110,.35); background:#FFFDF7;
+    color:var(--forest); font-size:14px; font-weight:500; font-family:inherit; cursor:pointer;
+    padding:9px 18px; border-radius:999px;
   }
   .cover-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:14px; }
   .cover{
@@ -60,7 +70,7 @@
     background-size:cover; background-position:center; position:relative; overflow:hidden; text-align:left;
   }
   .cover.locked{
-    background:var(--locked); color:var(--ink-soft); cursor:default; box-shadow:none; opacity:.85;
+    background:var(--locked); color:#4B5750; cursor:default; box-shadow:none; opacity:.85;
     align-items:center; justify-content:center; gap:4px; text-align:center;
   }
   .weight-tag{ position:absolute; top:8px; left:8px; font-size:13px; }
@@ -71,11 +81,11 @@
     border-radius:999px; padding:1px 7px; display:inline-block;
   }
   .cover-emoji{ font-size:26px; margin-bottom:2px; }
-  .legend{ margin:14px auto 0; text-align:center; font-size:11.5px; color:var(--ink-soft); }
+  .legend{ margin:14px auto 0; text-align:center; font-size:11.5px; color:var(--cream-soft); }
   .timeline{ position:relative; padding:4px 0; }
   .timeline-line{
     position:absolute; left:17px; top:4px; bottom:4px; width:2px;
-    background:repeating-linear-gradient(180deg, rgba(110,138,110,.35) 0 6px, transparent 6px 12px); z-index:0;
+    background:repeating-linear-gradient(180deg, rgba(201,196,174,.4) 0 6px, transparent 6px 12px); z-index:0;
   }
   .timeline-row{ display:flex; align-items:center; gap:12px; margin-bottom:10px; position:relative; z-index:1; }
   .timeline-badge{
@@ -105,7 +115,7 @@
   .list-title{ font-family:'Shippori Mincho', serif; font-size:14px; color:var(--forest-deep); }
   .list-meta{ font-size:11px; color:var(--ink-soft); }
   .read-mark{ font-size:10.5px; color:var(--amber); border:1px solid var(--amber); border-radius:6px; padding:1px 6px; }
-  .empty{ text-align:center; font-size:13px; color:var(--ink-soft); padding:24px 0; }
+  .empty{ text-align:center; font-size:13px; color:var(--cream-soft); padding:24px 0; }
   .detail-wrap{ margin:22px auto 0; background:#FFFDF7; border-radius:14px; overflow:hidden; box-shadow:0 4px 16px rgba(43,38,32,.12); }
   .detail-band{ height:8px; }
   .detail-body{ padding:18px 20px; }
@@ -121,7 +131,7 @@
   .stamp-btn .glyph{ font-size:18px; }
   .stamp-btn .label{ font-size:9.5px; color:var(--ink-soft); }
   .close-btn{ border:none; background:none; color:var(--moss); font-size:12px; cursor:pointer; padding:0; font-family:inherit; }
-  footer{ margin:48px auto 0; text-align:center; font-size:11.5px; color:var(--ink-soft); line-height:1.9; max-width:680px; }
+  footer{ margin:48px auto 0; text-align:center; font-size:11.5px; color:var(--cream-soft); line-height:1.9; max-width:680px; }
 </style>
 </head>
 <body>
@@ -163,7 +173,7 @@ const AREAS = [
       {t:"戻るための目印", u:"https://note.com/koyorimade/n/ne0cf223367f7"},
       {t:"森は優しいとは限らない", u:"https://note.com/koyorimade/n/n6a1b105035dc"}
     ],
-    spinoff:{t:"ハヤトの冒険（遺跡編）", u:"https://note.com/koyorimade/n/n6c844ba6752d"} },
+    spinoff:{t:"ハヤトの冒険（遺跡編）", u:"https://note.com/koyorimade/n/n6c844ba6752d", count:13} },
 
   { key:"moko", emoji:"🌰", area:"どんぐりの小道", character:"モコ", weight:"🌱", color:"#6E8A6E", cover:IMAGES.moko,
     tagline:"森に一番溶け込む子のルート。拾ったり、落としたり、ときどき壊したり。小さな出来事がころころ起きる。",
@@ -238,13 +248,15 @@ const AREAS = [
       {t:"買い物は金額より後味", u:"https://note.com/koyorimade/n/nd3d6f7b8ef31"},
       {t:"集め過ぎた日の話（モコの宝物）", u:"https://note.com/koyorimade/n/n3b15ac4b07ae"}
     ],
-    spinoff:{t:"家計講座 Day1〜7", u:"https://note.com/koyorimade/n/n33802b3d5609"} },
+    spinoff:{t:"家計講座 Day1〜7", u:"https://note.com/koyorimade/n/n33802b3d5609", count:7} },
 ];
 
 const LOCKED_AREA = { emoji:"⛲", area:"迷いの泉", character:"●●●",
   note:"迷いが深くなった時、静かに座っていると、水面に答えが浮かぶことがあるらしい。このエリアはまだ開放されていません。" };
 
 const HUB_URL = "https://note.com/koyorimade/n/n317059ab513c";
+const MAGAZINE_FAST_URL = "https://note.com/koyorimade/m/m7c7ff8149a89";
+const MAGAZINE_ALL_URL = "https://note.com/koyorimade/m/m97c2ffea3276";
 
 const BOOKS = AREAS.flatMap((a) =>
   a.episodes.map((ep, i) => ({
@@ -273,6 +285,30 @@ let state = {
   selectedId: null
 };
 
+// ---- persistence (localStorage) ----
+const STORAGE_KEY = "mori-no-hondana-progress-v1";
+
+function loadProgress(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    state.readIds = new Set(data.readIds || []);
+    state.reactions = data.reactions || {};
+  } catch(e) {
+    // localStorageが使えない環境(プライベートモード等)では静かに諦める
+  }
+}
+
+function saveProgress(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      readIds: Array.from(state.readIds),
+      reactions: state.reactions
+    }));
+  } catch(e) {}
+}
+
 function esc(s){
   return String(s).replace(/[&<>"']/g, (c) => ({
     "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
@@ -288,9 +324,9 @@ function searchResults(){
   return BOOKS.filter(b => b.title.includes(q) || b.character.includes(q) || b.area.includes(q));
 }
 
-function markRead(id){ state.readIds.add(id); }
+function markRead(id){ state.readIds.add(id); saveProgress(); }
 function openDetail(id){ state.selectedId = id; markRead(id); render(); }
-function setReaction(id, key){ state.reactions[id] = key; render(); }
+function setReaction(id, key){ state.reactions[id] = key; saveProgress(); render(); }
 function goHome(){ state.view = "home"; state.selectedId = null; state.query = ""; render(); }
 function goSeries(key){ state.view = key; state.selectedId = null; state.query = ""; render(); }
 
@@ -308,7 +344,7 @@ function renderLanterns(){
 function renderHeader(){
   const currentArea = findArea(state.view);
   const sr = searchResults();
-  let inner = '<button class="brand" onclick="goHome()">暮らしの森 文庫</button>';
+  let inner = '<button class="brand" onclick="goHome()">🌳 暮らしの森</button>';
 
   if(currentArea && !sr){
     inner += `
@@ -318,14 +354,23 @@ function renderHeader(){
       </div>`;
   } else {
     inner += `
-      <h1 class="title">森の本棚</h1>
-      <p class="sub">気になるエリアから、好きな順番で歩いてみてください。読んだ数はどこにも表示されません。灯りだけが、静かに増えていきます。</p>`;
+      <p class="eyebrow">好きな住人の物語を読む</p>
+      <h1 class="title">探索手帳</h1>
+      <p class="sub">気になるエリアから、好きな順番で歩いてみてください。読んだ話は灯りとなり、あなたの中だけで静かに点っていきます。</p>`;
   }
 
   inner += renderLanterns();
 
   if(state.view === "home" && !sr){
-    inner += `<a class="hub-link" href="${HUB_URL}" target="_blank" rel="noopener noreferrer">🌳 森の案内所へ戻る（はじめての方はこちら）</a>`;
+    const totalReadable = BOOKS.filter(b => b.url).length;
+    const readCount = BOOKS.filter(b => state.readIds.has(b.id)).length;
+    inner += `
+      <a class="hub-link" href="${HUB_URL}" target="_blank" rel="noopener noreferrer">🌳 森の案内所へ（はじめての方はこちら）</a>
+      <div class="magazine-row">
+        <a class="magazine-link" href="${MAGAZINE_FAST_URL}" target="_blank" rel="noopener noreferrer">🔰 気分で3話ずつ（森の足早ルート）</a>
+        <a class="magazine-link" href="${MAGAZINE_ALL_URL}" target="_blank" rel="noopener noreferrer">🌳 全話を順番に読む</a>
+      </div>
+      <p class="progress-note">これまでに歩いた話　${readCount} / ${totalReadable}話</p>`;
   }
 
   return `<header>${inner}</header>`;
@@ -348,7 +393,7 @@ function renderBody(){
   let html = "";
 
   if(currentArea && !sr){
-    html += `<button class="back-btn" onclick="goHome()">← 本棚にもどる</button>`;
+    html += `<button class="back-btn" onclick="goHome()">← 探索手帳にもどる</button>`;
   }
 
   if(sr){
@@ -415,10 +460,11 @@ function renderBody(){
     html += '</div>';
 
     if(currentArea.spinoff){
+      const sp = currentArea.spinoff;
       html += `
-        <a class="spinoff-card" href="${currentArea.spinoff.u}" target="_blank" rel="noopener noreferrer" onclick="markRead('${currentArea.key}-spinoff')">
+        <a class="spinoff-card" href="${sp.u}" target="_blank" rel="noopener noreferrer" onclick="markRead('${currentArea.key}-spinoff')">
           <span class="spinoff-label">📖 長編スピンオフ・まとめて読む用</span>
-          <span class="spinoff-title">${esc(currentArea.spinoff.t)}</span>
+          <span class="spinoff-title">${esc(sp.t)}${sp.count ? `　全${sp.count}話` : ""}</span>
         </a>`;
     }
     html += '</main>';
@@ -459,7 +505,7 @@ function closeDetail(){ state.selectedId = null; render(); }
 function renderFooter(){
   return `
     <footer>
-      <p>この本棚に、通知もランキングもありません。</p>
+      <p>この場所に、通知もランキングもありません。</p>
       <p>ページを開いた人にだけ、森が育っていくのが見えます。</p>
     </footer>`;
 }
@@ -484,6 +530,7 @@ function render(){
   }
 }
 
+loadProgress();
 render();
 </script>
 </body>

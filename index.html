@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>探索手帳｜暮らしの森</title>
+<title>森のエリアマップ｜探索手帳</title>
+<meta property="og:title" content="森のエリアマップ｜探索手帳" />
+<meta property="og:description" content="好きな住人の物語を読む。読んだ話は灯りとなり、静かに増えていきます。" />
+<meta name="twitter:card" content="summary" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -104,6 +107,13 @@
     border-radius:10px; text-decoration:none;
   }
   .spinoff-label{ display:block; font-size:11px; color:var(--amber); font-weight:700; margin-bottom:4px; letter-spacing:.02em; }
+  .spinoff2-label{ font-size:13px; color:var(--moss-light); font-weight:500; margin:20px 0 10px; }
+  .section-label{ font-size:12px; color:var(--cream-soft); font-style:italic; margin:16px 0 8px; padding-left:2px; }
+  .continue-note{
+    display:block; margin:14px 0 4px; font-size:15px; font-weight:500; color:var(--amber);
+    text-decoration:none; background:rgba(232,180,99,0.1); border:1px solid rgba(232,180,99,0.4);
+    border-radius:10px; padding:10px 14px; font-style:normal;
+  }
   .spinoff-title{ display:block; font-family:'Shippori Mincho', serif; font-size:14px; color:var(--ink); }
   .list-wrap{ display:flex; flex-direction:column; gap:8px; }
   .list-row{
@@ -156,24 +166,64 @@ const AREAS = [
     tagline:"考えごとが増えるほど、出口が遠くなる迷路。森で一番考えすぎる人が、よく迷い込む。",
     episodes:[
       {t:"図書館司書のアキラさん", u:"https://note.com/koyorimade/n/n910bb0bc2adb"},
-      {t:"決めきれない司書の迷い", u:"https://note.com/koyorimade/n/nf233447abc25"},
+      {t:"決めきれない司書の迷い", u:"https://note.com/koyorimade/n/nab27c0d6ddf2"},
       {t:"全部わかってから動きたい男", u:"https://note.com/koyorimade/n/nf233447abc25"},
       {t:"森で一番考える男", u:"https://note.com/koyorimade/n/ndb0c82f5b3c2"},
       {t:"雨の日の図書館（近日公開）", u:null}
     ],
-    spinoff:{t:"アキラの図書館再建編", u:"https://note.com/koyorimade/n/n6a99aec51f60"} },
+    subSeries:[
+      { label:"📚 図書館改修編", episodes:[
+        {t:"森の奥の古びた建物", u:"https://note.com/koyorimade/n/n6a99aec51f60"},
+        {t:"壊れた掃除ロボ", u:"https://note.com/koyorimade/n/n6f6002a51f69"},
+        {t:"謎の設計図", u:"https://note.com/koyorimade/n/ne40f52f288d7"},
+        {t:"隠された扉", u:"https://note.com/koyorimade/n/n8ef4db1144fd"},
+        {t:"森の図書館、開館（完）", u:"https://note.com/koyorimade/n/n4b822aa32292"}
+      ]},
+      { label:"📚 リブロ編", episodes:[
+        {t:"自動整理支援システム『リブロ』", u:"https://note.com/koyorimade/n/nab34a9324bf7"},
+        {t:"図書館の人気者", u:"https://note.com/koyorimade/n/n22486fcd660d"},
+        {t:"仕事が減った司書", u:"https://note.com/koyorimade/n/n46b937f8e80a"},
+        {t:"図書館に持ち込まれた謎", u:"https://note.com/koyorimade/n/n1f0441c46ba4"},
+        {t:"古い記録とハヤトが見たもの", u:"https://note.com/koyorimade/n/nf196652b0505"},
+        {t:"リブロの淡い光", u:"https://note.com/koyorimade/n/n9a687a5a291e"},
+        {t:"青い光の先へ", u:"https://note.com/koyorimade/n/ne0ca71465709"}
+      ]}
+    ] },
 
   { key:"hayato", emoji:"🌲", area:"探検ルート", character:"ハヤト", weight:"📖", color:"#3D5A50", cover:IMAGES.hayato,
     tagline:"森の奥へ続く道。気配に気づく少年の、小さな冒険ルート。",
     episodes:[
       {t:"森で一番気配に気付く少年｜ハヤト", u:"https://note.com/koyorimade/n/n55cc22fe9466"},
       {t:"ハヤトの素材集め", u:"https://note.com/koyorimade/n/n06b2b6ac1e54"},
-      {t:"ハヤトと黒猫", u:"https://note.com/koyorimade/n/n7834c076214f"},
       {t:"まだ大丈夫の代償", u:"https://note.com/koyorimade/n/ne26f2d229f5f"},
       {t:"戻るための目印", u:"https://note.com/koyorimade/n/ne0cf223367f7"},
+      {t:"森にいないはずの黒猫", u:"https://note.com/koyorimade/n/n7834c076214f", section:"不思議な黒猫との出会い"},
+      {t:"名を残した黒猫", u:"https://note.com/koyorimade/n/ne3814bd8001f"},
+      {t:"黒猫の帰る場所", u:"https://note.com/koyorimade/n/n6b28d14c07e4"},
+      {t:"キキが久しぶりに帰ってきた日【番外編】", u:"https://note.com/koyorimade/n/n665256bee849"},
       {t:"森は優しいとは限らない", u:"https://note.com/koyorimade/n/n6a1b105035dc"}
     ],
-    spinoff:{t:"ハヤトの冒険（遺跡編）", u:"https://note.com/koyorimade/n/n6c844ba6752d", count:13} },
+    subSeries:[
+      { label:"🧭 ハヤトの冒険", episodes:[
+        {t:"選んでしまった一歩", u:"https://note.com/koyorimade/n/n6c844ba6752d"},
+        {t:"キキを追ったその先に", u:"https://note.com/koyorimade/n/n0f75148f9c99"},
+        {t:"風が動く日、気をつけろ", u:"https://note.com/koyorimade/n/n67ac60cac65c"},
+        {t:"風が動いた日", u:"https://note.com/koyorimade/n/n28bce7fa893d"},
+        {t:"湖のほとりで", u:"https://note.com/koyorimade/n/ne56463fca119"},
+        {t:"何かが変だ", u:"https://note.com/koyorimade/n/ncb118061c7b3"},
+        {t:"動き出した好奇心", u:"https://note.com/koyorimade/n/n93b450f7dd08"},
+        {t:"目覚めの羅針", u:"https://note.com/koyorimade/n/nce8dd9b94f92"},
+        {t:"隠されていた森の秘密", u:"https://note.com/koyorimade/n/n547ce52e5902"},
+        {t:"眠っていた入口", u:"https://note.com/koyorimade/n/n3b00df04e0e3"},
+        {t:"誰かがいた", u:"https://note.com/koyorimade/n/n323a5b681a81"},
+        {t:"誰かの部屋", u:"https://note.com/koyorimade/n/n04a86dedcc5e"},
+        {t:"遺跡の忘れ物", u:"https://note.com/koyorimade/n/n2797c20592e6"},
+        {t:"遺跡から帰って", u:"https://note.com/koyorimade/n/n0b092d72c230"},
+        {t:"早く見せたい", u:"https://note.com/koyorimade/n/n669907151d4d"},
+        {t:"モコの部屋", u:"https://note.com/koyorimade/n/nc3e1ba802787"},
+        {t:"小さな告白", u:"https://note.com/koyorimade/n/n7d30d6f0bde1"}
+      ], continuesTo:{ label:"この先はリブロ編に合流します", u:"https://note.com/koyorimade/n/nab34a9324bf7" } }
+    ] },
 
   { key:"moko", emoji:"🌰", area:"どんぐりの小道", character:"モコ", weight:"🌱", color:"#6E8A6E", cover:IMAGES.moko,
     tagline:"森に一番溶け込む子のルート。拾ったり、落としたり、ときどき壊したり。小さな出来事がころころ起きる。",
@@ -197,24 +247,41 @@ const AREAS = [
       {t:"街に出るメイ", u:"https://note.com/koyorimade/n/n2a9eb55de57f"},
       {t:"メイの休日", u:"https://note.com/koyorimade/n/nd2d2754c302b"},
       {t:"メイの年越し", u:"https://note.com/koyorimade/n/nec864bf97b92"},
-      {t:"メイの得した日", u:"https://note.com/koyorimade/n/n8ead9bfc69ec"},
-      {t:"ゴミ出しとマダムの雷", u:"https://note.com/koyorimade/n/n797a1eb223d1"},
-      {t:"荷車は戻ってこない", u:"https://note.com/koyorimade/n/nf50ad8fb11f5"}
-    ],
-    spinoff:{t:"メイにできた新しい友達", u:"https://note.com/koyorimade/n/n8ead9bfc69ec"} },
+      {t:"メイの得した日", u:"https://note.com/koyorimade/n/n8ead9bfc69ec", section:"🦋 メイとカレン編"},
+      {t:"はじめての来客", u:"https://note.com/koyorimade/n/nfafb39b76841"},
+      {t:"あの日の約束の続き", u:"https://note.com/koyorimade/n/n363eedf251f0"},
+      {t:"これからも、遊びに来ていい？", u:"https://note.com/koyorimade/n/n4770378fcb71"},
+      {t:"今の暮らしに合うカップ", u:"https://note.com/koyorimade/n/n73179c7b64ec"},
+      {t:"食後のスイーツと、週末の約束", u:"https://note.com/koyorimade/n/n0f462f605a43"},
+      {t:"森に届いた新しい名前", u:"https://note.com/koyorimade/n/n958b2591ea53"},
+      {t:"今日は私が案内するね", u:"https://note.com/koyorimade/n/nd60167226779"},
+      {t:"荷車は戻ってこない", u:"https://note.com/koyorimade/n/nf50ad8fb11f5"},
+      {t:"ゴミ出しとマダムの雷", u:"https://note.com/koyorimade/n/n797a1eb223d1", section:"🌳 森へ戻る"},
+      {t:"メイのお気に入り", u:"https://note.com/koyorimade/n/n721a319c9909"}
+    ] },
 
   { key:"karen", emoji:"👒", area:"お嬢様の部屋", character:"カレン", weight:"📖", color:"#B08CA3", cover:IMAGES.karen,
     tagline:"屋敷を出た、元・お嬢様の部屋。慣れない暮らしは、いつもだいたい事件現場。双子の力を借りて日々奮闘中。",
     episodes:[
-      {t:"お嬢様は相場がわからない", u:"https://note.com/koyorimade/n/naa89d83d842f"},
-      {t:"お嬢様はケチャップに絶望する", u:"https://note.com/koyorimade/n/n1e89bbe4c961"},
-      {t:"お嬢様はコゲの前に立ち尽くす", u:"https://note.com/koyorimade/n/n199ce7ee1059"},
-      {t:"お嬢様のやらかし", u:"https://note.com/koyorimade/n/nd61ad54d1c7d"},
-      {t:"初めての来客", u:"https://note.com/koyorimade/n/nfafb39b76841"},
-      {t:"初めてのお出かけ", u:"https://note.com/koyorimade/n/n363eedf251f0"},
-      {t:"食後のスイーツと週末の約束", u:"https://note.com/koyorimade/n/n0f462f605a43"}
+      {t:"守られすぎたお嬢様", u:"https://note.com/koyorimade/n/nbfbf62491a50"},
+      {t:"屋敷が終わった日", u:"https://note.com/koyorimade/n/ndffd69e83229"},
+      {t:"何もわからない日", u:"https://note.com/koyorimade/n/n61be1b60408f"},
+      {t:"何もかもうまくいかない日々", u:"https://note.com/koyorimade/n/n56a942781135"},
+      {t:"街の小さなレストラン", u:"https://note.com/koyorimade/n/n6832fb2e2d20"},
+      {t:"止まっていた部屋に響いた音", u:"https://note.com/koyorimade/n/na225290b73e0"},
+      {t:"屋敷を出たお嬢様の再会", u:"https://note.com/koyorimade/n/n6ff8cdc5780d"}
     ],
-    spinoff:{t:"守られ過ぎたお嬢様（過去編）", u:"https://note.com/koyorimade/n/nbfbf62491a50"} },
+    subSeries:[
+      { label:"🍳 一人暮らし編", episodes:[
+        {t:"お嬢様は値段がわからない", u:"https://note.com/koyorimade/n/naa89d83d842f"},
+        {t:"お嬢様は味付けがわからない", u:"https://note.com/koyorimade/n/n2e0d5ce4d4e6"},
+        {t:"お嬢様はケチャップの前で絶望する", u:"https://note.com/koyorimade/n/n1e89bbe4c961"},
+        {t:"お嬢様はコゲの前に立ち尽くす", u:"https://note.com/koyorimade/n/n199ce7ee1059"},
+        {t:"お嬢様は惣菜の前で立ち止まる", u:"https://note.com/koyorimade/n/n2b2fe3a80708"},
+        {t:"お嬢様は冷蔵庫の前で絶望する", u:"https://note.com/koyorimade/n/n127552b2f3bb"},
+        {t:"お嬢様は独りを知る", u:"https://note.com/koyorimade/n/n105dfaa0d0b6"}
+      ]}
+    ] },
 
   { key:"twins", emoji:"🧺", area:"ツインズストリート", character:"テキパキ＆シレット", weight:"📖", color:"#7FA0A6", cover:IMAGES.twins,
     tagline:"散らかった暮らしを回る状態に戻す通り。二人が通った後は、なぜか部屋が整っている。",
@@ -225,7 +292,7 @@ const AREAS = [
       {t:"軽やかなテキパキ", u:"https://note.com/koyorimade/n/ne2c695a63190"},
       {t:"静かなるシレット", u:"https://note.com/koyorimade/n/nd9370a95181f"}
     ],
-    spinoff:{t:"家事レッスン｜部屋が散らかる本当の理由", u:"https://note.com/koyorimade/n/nbb583732f7aa"} },
+    spinoff:{t:"双子の家事レッスン", u:"https://note.com/koyorimade/n/nbb583732f7aa", count:7} },
 
   { key:"atsuko", emoji:"🧵", area:"森の工房", character:"アツコ", weight:"🌱", color:"#A98B5D", cover:IMAGES.atsuko,
     tagline:"街と森のあいだの小さな工房。森の困りごとは、だいたいここで形になる。",
@@ -244,11 +311,17 @@ const AREAS = [
     episodes:[
       {t:"森で一番迷いをほどく人", u:"https://note.com/koyorimade/n/n8df9971fe957"},
       {t:"家計の鬼教官、森に現る", u:"https://note.com/koyorimade/n/n7e33b9dbb520"},
-      {t:"家計講座を終えて", u:"https://note.com/koyorimade/n/nf176b957310e"},
-      {t:"買い物は金額より後味", u:"https://note.com/koyorimade/n/nd3d6f7b8ef31"},
+      {t:"家計簿は怖くないザマス！", u:"https://note.com/koyorimade/n/n14a44a387fea", section:"💰 マダム・ザマスの家計講座"},
+      {t:"レシート大作戦ザマス！", u:"https://note.com/koyorimade/n/ne2c1b92113be"},
+      {t:"今日は支出を3つに分けるザマス！", u:"https://note.com/koyorimade/n/n7d60d5e8bee4"},
+      {t:"我慢しない方が長持ちするザマス！", u:"https://note.com/koyorimade/n/n13b4d296c1cd"},
+      {t:"感情費に名付けするザマス！", u:"https://note.com/koyorimade/n/nadbdf0f9e227"},
+      {t:"今日は戦わずに勝つザマス！", u:"https://note.com/koyorimade/n/n17c62bfb5fbe"},
+      {t:"今日で家計簿と対等ザマス！（最終回）", u:"https://note.com/koyorimade/n/naec63db22b7f"},
+      {t:"家計講座を終えて（番外編）", u:"https://note.com/koyorimade/n/nf176b957310e"},
+      {t:"買い物は金額より後味", u:"https://note.com/koyorimade/n/nd3d6f7b8ef31", section:"🌳 森へ戻る"},
       {t:"集め過ぎた日の話（モコの宝物）", u:"https://note.com/koyorimade/n/n3b15ac4b07ae"}
-    ],
-    spinoff:{t:"家計講座 Day1〜7", u:"https://note.com/koyorimade/n/n33802b3d5609", count:7} },
+    ] },
 ];
 
 const LOCKED_AREA = { emoji:"⛲", area:"迷いの泉", character:"●●●",
@@ -262,9 +335,27 @@ const BOOKS = AREAS.flatMap((a) =>
   a.episodes.map((ep, i) => ({
     id: a.key + "-" + i, no: i + 1, title: ep.t, url: ep.u,
     character: a.character, area: a.area, emoji: a.emoji, color: a.color,
-    tagline: a.tagline, areaKey: a.key
+    tagline: a.tagline, areaKey: a.key, section: ep.section || null
   }))
 );
+
+// 個別URLを持つ副シリーズ(改修編・リブロ編・一人暮らし編など)は、本編と同じように
+// 1話ずつ既読カウントできる追加のタイムラインとして扱う
+const SPINOFF2_BOOKS = AREAS.filter((a) => a.subSeries).flatMap((a) =>
+  a.subSeries.flatMap((series, si) =>
+    series.episodes.map((ep, i) => ({
+      id: a.key + "-sub" + si + "-" + i, no: i + 1, title: ep.t, url: ep.u,
+      character: a.character, area: a.area, emoji: a.emoji, color: a.color,
+      areaKey: a.key
+    }))
+  )
+);
+
+// スピンオフが単一リンク(まとめ記事)の場合は、話数ぶんの重みだけを
+// 合計カウントに反映する(個別の既読管理はしない)
+const SPINOFF_SINGLES = AREAS.filter((a) => a.spinoff && a.spinoff.count).map((a) => ({
+  id: a.key + "-spinoff", weight: a.spinoff.count
+}));
 
 const STAMPS = [
   { key:"cry", label:"泣いた", glyph:"🌧" },
@@ -316,12 +407,14 @@ function esc(s){
 }
 
 function findArea(key){ return AREAS.find(a => a.key === key) || null; }
-function findBook(id){ return BOOKS.find(b => b.id === id) || null; }
+function findBook(id){ return BOOKS.find(b => b.id === id) || SPINOFF2_BOOKS.find(b => b.id === id) || null; }
 
 function searchResults(){
   const q = state.query.trim();
   if(!q) return null;
-  return BOOKS.filter(b => b.title.includes(q) || b.character.includes(q) || b.area.includes(q));
+  return BOOKS.concat(SPINOFF2_BOOKS).filter(
+    b => b.title.includes(q) || b.character.includes(q) || b.area.includes(q)
+  );
 }
 
 function markRead(id){ state.readIds.add(id); saveProgress(); }
@@ -362,8 +455,12 @@ function renderHeader(){
   inner += renderLanterns();
 
   if(state.view === "home" && !sr){
-    const totalReadable = BOOKS.filter(b => b.url).length;
-    const readCount = BOOKS.filter(b => state.readIds.has(b.id)).length;
+    const totalReadable = BOOKS.filter(b => b.url).length
+      + SPINOFF2_BOOKS.length
+      + SPINOFF_SINGLES.reduce((sum, s) => sum + s.weight, 0);
+    const readCount = BOOKS.filter(b => state.readIds.has(b.id)).length
+      + SPINOFF2_BOOKS.filter(b => state.readIds.has(b.id)).length
+      + SPINOFF_SINGLES.reduce((sum, s) => sum + (state.readIds.has(s.id) ? s.weight : 0), 0);
     inner += `
       <a class="hub-link" href="${HUB_URL}" target="_blank" rel="noopener noreferrer">🌳 森の案内所へ（はじめての方はこちら）</a>
       <div class="magazine-row">
@@ -448,6 +545,9 @@ function renderBody(){
     html += '<main><div class="timeline"><div class="timeline-line" aria-hidden="true"></div>';
     books.forEach(b => {
       const read = state.readIds.has(b.id);
+      if(b.section){
+        html += `<p class="section-label">${esc(b.section)}</p>`;
+      }
       html += '<div class="timeline-row">';
       html += `<span class="timeline-badge ${read ? "read" : ""}" style="background:${read ? "var(--amber)" : b.color}">${read ? "✓" : b.no}</span>`;
       if(b.url){
@@ -466,6 +566,25 @@ function renderBody(){
           <span class="spinoff-label">📖 長編スピンオフ・まとめて読む用</span>
           <span class="spinoff-title">${esc(sp.t)}${sp.count ? `　全${sp.count}話` : ""}</span>
         </a>`;
+    }
+
+    if(currentArea.subSeries){
+      currentArea.subSeries.forEach((series, si) => {
+        const subBooks = SPINOFF2_BOOKS.filter(b => b.areaKey === currentArea.key && b.id.startsWith(currentArea.key + "-sub" + si + "-"));
+        html += `<p class="spinoff2-label">${esc(series.label)}</p>`;
+        html += '<div class="timeline"><div class="timeline-line" aria-hidden="true"></div>';
+        subBooks.forEach(b => {
+          const read = state.readIds.has(b.id);
+          html += '<div class="timeline-row">';
+          html += `<span class="timeline-badge ${read ? "read" : ""}" style="background:${read ? "var(--amber)" : b.color}">${read ? "✓" : b.no}</span>`;
+          html += `<a class="timeline-chip" href="${b.url}" target="_blank" rel="noopener noreferrer" onclick="openDetail('${b.id}')">${esc(b.title)}</a>`;
+          html += '</div>';
+        });
+        html += '</div>';
+        if(series.continuesTo){
+          html += `<a class="continue-note" href="${series.continuesTo.u}" target="_blank" rel="noopener noreferrer">↳ ${esc(series.continuesTo.label)}</a>`;
+        }
+      });
     }
     html += '</main>';
     return html;

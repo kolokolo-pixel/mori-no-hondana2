@@ -119,6 +119,7 @@
   .list-row{
     display:flex; align-items:center; gap:10px; background:#FFFDF7; border:1px solid rgba(110,138,110,.2);
     border-radius:10px; padding:10px 14px; cursor:pointer; text-align:left; width:100%; font-family:inherit;
+    text-decoration:none; box-sizing:border-box;
   }
   .list-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
   .list-text{ display:flex; flex-direction:column; flex:1; gap:2px; }
@@ -367,6 +368,21 @@ const STAMPS = [
 
 const LANTERN_SLOTS = 8;
 
+// ---- 誰かが読んでくれた合図(任意) ----
+// ntfy.sh は無料の通知サービス。ここのトピック名をあなたが ntfy アプリ/サイトで
+// 購読しておくと、下の notifyCreator() が呼ばれるたびにスマホへ通知が届きます。
+// 他の人に知られると誰でも通知を送れてしまうので、ランダムな文字列のままにしてください。
+const NTFY_TOPIC = "mori-no-elria-4fd8e9c9324b4bc0";
+
+function notifyCreator(message){
+  try {
+    fetch("https://ntfy.sh/" + NTFY_TOPIC, {
+      method: "POST",
+      body: message
+    }).catch(() => {});
+  } catch(e) {}
+}
+
 // ---- state ----
 let state = {
   view: "home",
@@ -419,7 +435,18 @@ function searchResults(){
 
 function markRead(id){ state.readIds.add(id); saveProgress(); }
 function openDetail(id){ state.selectedId = id; markRead(id); render(); }
-function setReaction(id, key){ state.reactions[id] = key; saveProgress(); render(); }
+function setReaction(id, key){
+  state.reactions[id] = key;
+  saveProgress();
+  try {
+    if(!sessionStorage.getItem("mori-notified")){
+      sessionStorage.setItem("mori-notified", "1");
+      const stamp = STAMPS.find(s => s.key === key);
+      notifyCreator("誰かが探索手帳を読んで、気持ちを残していきました " + (stamp ? stamp.glyph : "🌙"));
+    }
+  } catch(e) {}
+  render();
+}
 function goHome(){ state.view = "home"; state.selectedId = null; state.query = ""; render(); }
 function goSeries(key){ state.view = key; state.selectedId = null; state.query = ""; render(); }
 
@@ -500,15 +527,19 @@ function renderBody(){
     } else {
       sr.forEach(b => {
         const read = state.readIds.has(b.id);
+        const tag = b.url ? "a" : "div";
+        const linkAttrs = b.url
+          ? `href="${b.url}" target="_blank" rel="noopener noreferrer"`
+          : "";
         html += `
-          <button class="list-row" onclick="openDetail('${b.id}')">
+          <${tag} class="list-row" ${linkAttrs} onclick="openDetail('${b.id}')">
             <span class="list-dot" style="background:${b.color}"></span>
             <span class="list-text">
               <span class="list-title">${esc(b.title)}</span>
               <span class="list-meta">${b.emoji} ${esc(b.area)}｜${esc(b.character)}</span>
             </span>
             ${read ? '<span class="read-mark">既読</span>' : ""}
-          </button>`;
+          </${tag}>`;
       });
     }
     html += '</main>';
@@ -612,7 +643,7 @@ function renderDetail(){
       <div class="detail-body">
         <span class="detail-meta">${b.emoji} ${esc(b.area)}｜${esc(b.character)}</span>
         <h2 class="detail-title">${esc(b.title)}</h2>
-        <p class="stamp-prompt">${reaction ? "気持ちを届けました" : "読んだ気持ちを、ひとつだけ"}</p>
+        <p class="stamp-prompt">${reaction ? "気持ちを保存しました" : "読んだ気持ちを、ひとつだけ"}</p>
         <div class="stamp-row">${stamps}</div>
         <button class="close-btn" onclick="closeDetail()">閉じる</button>
       </div>
@@ -631,6 +662,7 @@ function renderFooter(){
 
 function render(){
   const app = document.getElementById("app");
+  const hadFocus = document.activeElement && document.activeElement.id === "search-input";
   app.innerHTML =
     renderHeader() +
     renderSearch() +
@@ -640,12 +672,26 @@ function render(){
 
   const input = document.getElementById("search-input");
   if(input){
-    input.addEventListener("input", (e) => {
+    let isComposing = false;
+
+    input.addEventListener("compositionstart", () => { isComposing = true; });
+
+    input.addEventListener("compositionend", (e) => {
+      isComposing = false;
       state.query = e.target.value;
       render();
-      const el = document.getElementById("search-input");
-      if(el){ el.focus(); el.setSelectionRange(el.value.length, el.value.length); }
     });
+
+    input.addEventListener("input", (e) => {
+      state.query = e.target.value;
+      if(isComposing) return; // 日本語入力(IME)の変換中は再描画しない。入力欄が壊れて文字化けする原因になるため
+      render();
+    });
+
+    if(hadFocus){
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
   }
 }
 

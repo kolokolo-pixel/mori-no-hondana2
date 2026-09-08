@@ -293,7 +293,18 @@ const AREAS = [
       {t:"軽やかなテキパキ", u:"https://note.com/koyorimade/n/ne2c695a63190"},
       {t:"静かなるシレット", u:"https://note.com/koyorimade/n/nd9370a95181f"}
     ],
-    spinoff:{t:"双子の家事レッスン", u:"https://note.com/koyorimade/n/nbb583732f7aa", count:7} },
+    subSeries:[
+      { label:"🧹 双子の家事レッスン（お宅訪問記）", episodes:[
+        {t:"部屋が散らかる本当の理由｜メイ", u:"https://note.com/koyorimade/n/nd9dea0267187"},
+        {t:"床が見え始めた理由｜メイ", u:"https://note.com/koyorimade/n/n1dfd380d3a28"},
+        {t:"洗い物はテトリス｜メイ", u:"https://note.com/koyorimade/n/n20c71b64f998"},
+        {t:"洗濯はぷよぷよ｜メイ", u:"https://note.com/koyorimade/n/ne7f3ea1298bc"},
+        {t:"散らかる家の共通構造｜お嬢様", u:"https://note.com/koyorimade/n/nbb604bf8da0f"},
+        {t:"【保存版】シミ抜き手順書", u:"https://note.com/koyorimade/n/n7a9963607f37"},
+        {t:"片付けは力学でできている｜アツコ", u:"https://note.com/koyorimade/n/n362e3b005626"},
+        {t:"人は変えずに、仕組みだけ（完）", u:"https://note.com/koyorimade/n/nc42211945c42"}
+      ]}
+    ] },
 
   { key:"atsuko", emoji:"🧵", area:"森の工房", character:"アツコ", weight:"🌱", color:"#A98B5D", cover:IMAGES.atsuko,
     tagline:"街と森のあいだの小さな工房。森の困りごとは、だいたいここで形になる。",
@@ -383,6 +394,25 @@ function notifyCreator(message){
   } catch(e) {}
 }
 
+// ---- 匿名の訪問者ID ----
+// 個人を特定する情報は一切含まない、ランダムな短い文字列。
+// 同じ端末・ブラウザなら次に来た時も同じIDになるので、延べ回数と
+// リピーターかどうかの区別だけがつくようになる。
+const VISITOR_ID_KEY = "mori-visitor-id";
+
+function getVisitorId(){
+  try {
+    let id = localStorage.getItem(VISITOR_ID_KEY);
+    if(!id){
+      id = Math.random().toString(36).slice(2, 6);
+      localStorage.setItem(VISITOR_ID_KEY, id);
+    }
+    return id;
+  } catch(e) {
+    return "????";
+  }
+}
+
 // ---- state ----
 let state = {
   view: "home",
@@ -442,7 +472,7 @@ function setReaction(id, key){
     if(!sessionStorage.getItem("mori-notified")){
       sessionStorage.setItem("mori-notified", "1");
       const stamp = STAMPS.find(s => s.key === key);
-      notifyCreator("誰かが探索手帳を読んで、気持ちを残していきました " + (stamp ? stamp.glyph : "🌙"));
+      notifyCreator("誰かが探索手帳を読んで、気持ちを残していきました " + (stamp ? stamp.glyph : "🌙") + "（訪問者: " + getVisitorId() + "）");
     }
   } catch(e) {}
   render();
@@ -483,7 +513,7 @@ function renderHeader(){
 
   if(state.view === "home" && !sr){
     const totalReadable = BOOKS.filter(b => b.url).length
-      + SPINOFF2_BOOKS.length
+      + SPINOFF2_BOOKS.filter(b => b.url).length
       + SPINOFF_SINGLES.reduce((sum, s) => sum + s.weight, 0);
     const readCount = BOOKS.filter(b => state.readIds.has(b.id)).length
       + SPINOFF2_BOOKS.filter(b => state.readIds.has(b.id)).length
@@ -608,7 +638,11 @@ function renderBody(){
           const read = state.readIds.has(b.id);
           html += '<div class="timeline-row">';
           html += `<span class="timeline-badge ${read ? "read" : ""}" style="background:${read ? "var(--amber)" : b.color}">${read ? "✓" : b.no}</span>`;
-          html += `<a class="timeline-chip" href="${b.url}" target="_blank" rel="noopener noreferrer" onclick="openDetail('${b.id}')">${esc(b.title)}</a>`;
+          if(b.url){
+            html += `<a class="timeline-chip" href="${b.url}" target="_blank" rel="noopener noreferrer" onclick="openDetail('${b.id}')">${esc(b.title)}</a>`;
+          } else {
+            html += `<span class="timeline-chip soon">${esc(b.title)}</span>`;
+          }
           html += '</div>';
         });
         html += '</div>';
